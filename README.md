@@ -14,3 +14,11 @@ The information abouth the pitch can be in two formats, see [here](http://www.sp
  - [Snack Homepage](http://www.speech.kth.se/snack/)
  - [Tcl/Tk scripting language](https://www.tcl.tk/software/tcltk/)
  - [Examples with Snack](www.speech.kth.se/snack/tutorial.html#gettingstarted)
+
+# Classification
+
+The classification can be performed using a recurrent neural network as it can deal with time series well. As a suggestion it is also possible to introduce a CNN as explored by [this paper](https://ieeexplore.ieee.org/document/8141873).
+
+One particular flexible network could be the LSTM one, and for the setting of classification in Python we can refer to a tutorial [here](https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/). 
+
+Here is another [link](https://datascience.stackexchange.com/questions/32341/what-is-the-best-method-for-classification-of-time-series-datashould-i-use-lstm) still on the topic of LSTM networks.
