@@ -22,3 +22,5 @@ The classification can be performed using a recurrent neural network as it can d
 One particular flexible network could be the LSTM one, and for the setting of classification in Python we can refer to a tutorial [here](https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/). 
 
 Here is another [link](https://datascience.stackexchange.com/questions/32341/what-is-the-best-method-for-classification-of-time-series-datashould-i-use-lstm) still on the topic of LSTM networks.
+
+[LSTM explaination](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
