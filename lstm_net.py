@@ -26,6 +26,8 @@ embedding_vecor_length = 32
 model = Sequential()
 # possible embedding layer
 #model.add(Embedding(input_dim, output_dim, input_length=...))
+# The LSTM network expects the input data 
+# to be provided with a specific array structure in the form of: [samples, time steps, features].
 model.add(LSTM(100, input_shape=input_size))
 model.add(Dense(1, activation='sigmoid'))
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
