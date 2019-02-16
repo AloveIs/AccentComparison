@@ -26,3 +26,4 @@ Here is another [link](https://datascience.stackexchange.com/questions/32341/wha
 [LSTM explaination](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
 
 To use in python with Keras library we must start from this [page here ](https://keras.io/getting-started/sequential-model-guide/).
+and [here](https://keras.io/layers/recurrent/)
