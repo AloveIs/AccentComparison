@@ -26,7 +26,7 @@ embedding_vecor_length = 32
 model = Sequential()
 # possible embedding layer
 #model.add(Embedding(input_dim, output_dim, input_length=...))
-model.add(LSTM(100, input_dim=input_size))
+model.add(LSTM(100, input_shape=input_size))
 model.add(Dense(1, activation='sigmoid'))
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 print(model.summary())
