@@ -24,3 +24,5 @@ One particular flexible network could be the LSTM one, and for the setting of cl
 Here is another [link](https://datascience.stackexchange.com/questions/32341/what-is-the-best-method-for-classification-of-time-series-datashould-i-use-lstm) still on the topic of LSTM networks.
 
 [LSTM explaination](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
+
+To use in python with Keras library we must start from this [page here ](https://keras.io/getting-started/sequential-model-guide/).
