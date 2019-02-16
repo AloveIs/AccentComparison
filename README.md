@@ -13,7 +13,7 @@ The information abouth the pitch can be in two formats, see [here](http://www.sp
  - [Manual](http://www.speech.kth.se/snack/man/snack2.2/tcl-man.html)
  - [Snack Homepage](http://www.speech.kth.se/snack/)
  - [Tcl/Tk scripting language](https://www.tcl.tk/software/tcltk/)
- - [Examples with Snack](www.speech.kth.se/snack/tutorial.html#gettingstarted)
+ - [Examples with Snack](https://www.speech.kth.se/snack/tutorial.html#gettingstarted)
 
 # Classification
 
