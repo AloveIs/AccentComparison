@@ -20,6 +20,11 @@ foreach file $list {
  set fd [open [file rootname $file].frm w]
  puts $fd [join [s formant] \n]
  close $fd
+
+ set fd [open [file rootname $file].pwr w]
+ puts $fd [join [s power] \n]
+ close $fd
 }
+
 
 exit
