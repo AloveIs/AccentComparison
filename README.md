@@ -15,6 +15,20 @@ The information abouth the pitch can be in two formats, see [here](http://www.sp
  - [Tcl/Tk scripting language](https://www.tcl.tk/software/tcltk/)
  - [Examples with Snack](https://www.speech.kth.se/snack/tutorial.html#gettingstarted)
 
+# Preprocessing
+
+Pitch values will be:
+ - log scale
+ - centered
+
+Probablility of voicing:
+ - untouched
+ 
+Power(already in log scale):
+ - untouched
+
+If using only pitch won't be enough to make any conclusive arguments about our hypothesis that the dialects, whose areas where they're spoken are in each other's proximity, are more similar than the dialects spoken in more distant areas from each other, despite the corresponding dialects' belonging to different official languages, we will encorporate formants data as part of our features. This decision was based on the fact that after pitch varition the next most prominent feature characterizing a dialect is the differences in the pronunciation of the vowels, which would be captured by their respective formants.
+
 # Classification
 
 The classification can be performed using a recurrent neural network as it can deal with time series well. As a suggestion it is also possible to introduce a CNN as explored by [this paper](https://ieeexplore.ieee.org/document/8141873).
