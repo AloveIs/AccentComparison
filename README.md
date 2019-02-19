@@ -15,6 +15,20 @@ The information abouth the pitch can be in two formats, see [here](http://www.sp
  - [Tcl/Tk scripting language](https://www.tcl.tk/software/tcltk/)
  - [Examples with Snack](https://www.speech.kth.se/snack/tutorial.html#gettingstarted)
 
+# Preprocessing
+
+Pitch values will be:
+ - log scale
+ - centered
+
+Probablility of voicing:
+ - untouched
+ 
+Power(already in log scale):
+ - untouched
+
+
+
 # Classification
 
 The classification can be performed using a recurrent neural network as it can deal with time series well. As a suggestion it is also possible to introduce a CNN as explored by [this paper](https://ieeexplore.ieee.org/document/8141873).
