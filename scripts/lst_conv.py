@@ -1,5 +1,5 @@
 # LSTM and CNN for sequence classification in the IMDB dataset
-import numpy
+import numpy as np
 from keras.datasets import imdb
 from keras.models import Sequential
 from keras.layers import Dense
@@ -8,11 +8,18 @@ from keras.layers.convolutional import Conv1D
 from keras.layers.convolutional import MaxPooling1D
 from keras.layers.embeddings import Embedding
 from keras.preprocessing import sequence
-# fix random seed for reproducibility
-numpy.random.seed(7)
-# load the dataset but only keep the top n words, zero the rest
-top_words = 5000
-(X_train, y_train), (X_test, y_test) = imdb.load_data(num_words=top_words)
+
+np.random.seed(7)
+
+se_pitch_data = np.load('./swedish/TR1pitch.npy')
+se_data_size = np.size(se_pitch_data)
+se_labels = np.repeat('se', se_data_size)
+training_size = int(2/3 * se_data_size)
+X_train = se_pitch_data[:training_size]
+y_train = se_labels[:training_size]
+X_test = se_pitch_data[training_size:]
+y_test = se_labels[training_size:]
+
 # truncate and pad input sequences
 max_review_length = 500
 X_train = sequence.pad_sequences(X_train, maxlen=max_review_length)
