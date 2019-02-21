@@ -3,5 +3,5 @@
 while read line
 do
   echo "Downloading $line..."
-  wget --directory-prefix=../swedish/skane/ -c $line
-done < "../swedish/skane.txt"
+  wget --directory-prefix=../skane/ -c $line
+done < "../skane/skane.txt"
