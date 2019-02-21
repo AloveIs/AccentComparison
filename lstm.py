@@ -11,7 +11,7 @@ np.random.seed(1234)
 
 
 ### Hyperparameters
-batch_size = 5
+batch_size = 10
 hidden_units = 32
 nb_classes = 2
 
@@ -19,13 +19,20 @@ nb_classes = 2
 def get_data(label):
     print('Loading data...')
     if label=="test":
-        train_data = np.genfromtxt('toy_data\ECG200_TRAIN.tsv',delimiter='\t')
+        train_data = np.genfromtxt('toy_data/ECG200_TRAIN.tsv',delimiter='\t')
         y_train = train_data[:,0]
         X_train = train_data[:,1:]
 
-        test_data = np.genfromtxt('toy_data\ECG200_TEST.tsv',delimiter='\t')
+        test_data = np.genfromtxt('toy_data/ECG200_TEST.tsv',delimiter='\t')
         y_test = test_data[:,0]
         X_test = test_data[:,1:]
+        
+        
+        X_val = X_test[:50, :]
+        X_test = X_test[:50, :]
+        
+        y_val = y_test[:50]
+        y_test = y_test[50:]
 
     #else:
         #(X_train, y_train), (X_test, y_test) = GET_THE_DATA
@@ -38,19 +45,21 @@ def get_data(label):
     print('y_test shape:', y_test.shape)
     #print(y_test)
 
-    return X_train, X_test,y_train, y_test
+    return X_train[:, :, np.newaxis], X_val[:, :, np.newaxis], X_test[:, :, np.newaxis],y_train, y_val, y_test
 
 
-def train_model(X_train, X_test, y_train, y_test):
+def train_model(X_train, X_val, X_test, y_train,y_val, y_test):
     print('Build model...')
 
     Y_train = np_utils.to_categorical(y_train, nb_classes)
+    Y_val = np_utils.to_categorical(y_val, nb_classes)
     Y_test = np_utils.to_categorical(y_test, nb_classes)
+    
 
 
     ### LSTM
     model = Sequential()
-    model.add(LSTM(hidden_units, batch_input_size = (50, X_train.shape[1], X_train.shape[2]) ))
+    model.add(LSTM(hidden_units, batch_input_shape = (batch_size, X_train.shape[1], X_train.shape[2]) ))
 
 
     ### Classification
@@ -59,18 +68,19 @@ def train_model(X_train, X_test, y_train, y_test):
 
 
     ### Learning algorithm
-    model.compile(loss='categorical_crossentropy', optimizer='adam')
+    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 
     ### Training and evualuation
     print("Training ...")
-    model.fit(X_train, y_train, batch_size=batch_size, nb_epoch=3, validation_data=(X_test, y_test), show_accuracy=True)
-    score, acc = model.evaluate(X_test, y_test,
+    model.fit(X_train, Y_train, batch_size=batch_size, epochs=5, validation_data=(X_val, Y_val), verbose = 1)
+    '''[score, acc] = model.evaluate(X_test, Y_test,
                                 batch_size=batch_size,
-                                show_accuracy=True)
-    print('Test score:', score)
-    print('Test accuracy:', acc)
-
+                                verbose = 1)'''
+    prediction = model.predict(X_test, batch_size = batch_size)
+    #print('Test score:', score)
+    print('Test accuracy:', 1 - len(np.nonzero(np.argmax(prediction, axis = 1) - y_test)[0]) / 50)
+    
 if __name__ == "__main__":
-    X_train, X_test, y_train, y_test = get_data("test")
-    #train_model(X_train, X_test, y_train, y_test)
+    X_train, X_val, X_test, y_train, y_val, y_test = get_data("test")
+    train_model(X_train, X_val, X_test, y_train, y_val, y_test)
