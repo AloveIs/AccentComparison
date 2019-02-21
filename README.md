@@ -48,4 +48,4 @@ and [here](https://keras.io/layers/recurrent/)
 
 Dimensions : 
 X -> (number of sequences in the dataset, number of samples per sequence, number of features : 1 if only pitch)
-y -> (number of sequences in the dataset, 0 or 1)
+y -> (number of sequences in the dataset) : 0 or 1
