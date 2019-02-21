@@ -1,2 +1,6 @@
-#*.wav
-
+*.wav
+*.mp3
+*.fmt
+*.pwr
+*.f0
+*.npy
