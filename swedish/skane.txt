@@ -1,0 +1,13 @@
+http://swedia.ling.gu.se/Ljud/Gotaland/Skane/Bara/bar_ow2A_pbN.wav
+http://swedia.ling.gu.se/Ljud/Gotaland/Skane/Bara/bar_om_pbN.wav
+http://swedia.ling.gu.se/Ljud/Gotaland/Skane/Bara/bar_yw_pbN.wav
+http://swedia.ling.gu.se/Ljud/Gotaland/Skane/Bara/bar_ym_pbN.wav
+http://swedia.ling.gu.se/Ljud/Gotaland/Skane/Bjuv/bju_ow_red_pb.wav
+http://swedia.ling.gu.se/Ljud/Gotaland/Skane/Bjuv/bju_om_red_pb.wav
+http://swedia.ling.gu.se/Ljud/Gotaland/Skane/Bjuv/bju_yw_pb.wav
+http://swedia.ling.gu.se/Ljud/Gotaland/Skane/Bjuv/bju_ym_red_pb.wav
+http://swedia.ling.gu.se/Ljud/Gotaland/Skane/N_Rorum/nro_ow_pbN.wav
+http://swedia.ling.gu.se/Ljud/Gotaland/Skane/N_Rorum/nro_om_pbN.wav
+http://swedia.ling.gu.se/Gotaland/Skane/N_Rorum/yw.html
+http://swedia.ling.gu.se/Ljud/Gotaland/Skane/N_Rorum/nro_ym_pbN.wav
+
