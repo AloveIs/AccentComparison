@@ -41,3 +41,13 @@ Here is another [link](https://datascience.stackexchange.com/questions/32341/wha
 
 To use in python with Keras library we must start from this [page here ](https://keras.io/getting-started/sequential-model-guide/).
 and [here](https://keras.io/layers/recurrent/)
+
+
+
+# GET THE DATA PIETRO SERIOUSLY WHAT THE FUCK
+
+Dimensions : 
+
+X -> (number of sequences in the dataset, number of samples per sequence, number of features : 1 if only pitch)
+
+y -> (number of sequences in the dataset) : 0 or 1
