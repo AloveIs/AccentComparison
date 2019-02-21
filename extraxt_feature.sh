@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for element in swedish skane norwegian danish
+for element in west skane norwegian danish
 do
   echo "Extractiong for: $element ..."
   cd $element;

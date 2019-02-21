@@ -1,2 +1,5 @@
+bar_om_pbN.wav
+bar_ow2A_pbN.wav
+bar_yw_pbN.wav
 TR1.wav
 TR2.wav
