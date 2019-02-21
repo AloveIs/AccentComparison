@@ -3,4 +3,4 @@
 *.frm
 *.pwr
 *.f0
-*.npy
+#*.npy
