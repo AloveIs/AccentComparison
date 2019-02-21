@@ -8,6 +8,6 @@ http://swedia.ling.gu.se/Ljud/Gotaland/Skane/Bjuv/bju_yw_pb.wav
 http://swedia.ling.gu.se/Ljud/Gotaland/Skane/Bjuv/bju_ym_red_pb.wav
 http://swedia.ling.gu.se/Ljud/Gotaland/Skane/N_Rorum/nro_ow_pbN.wav
 http://swedia.ling.gu.se/Ljud/Gotaland/Skane/N_Rorum/nro_om_pbN.wav
-http://swedia.ling.gu.se/Gotaland/Skane/N_Rorum/yw.html
 http://swedia.ling.gu.se/Ljud/Gotaland/Skane/N_Rorum/nro_ym_pbN.wav
+http://swedia.ling.gu.se/Ljud/Gotaland/Skane/N_Rorum/nro_yw_pbN.wav
 

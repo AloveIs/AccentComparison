@@ -1,2 +1,12 @@
-TR1.wav
-TR2.wav
+bar_om_pbN.wav
+bar_ow2A_pbN.wav
+bar_ym_pbN.wav
+bar_yw_pbN.wav
+bju_om_red_pb.wav
+bju_ow_red_pb.wav
+bju_ym_red_pb.wav
+bju_yw_pb.wav
+nro_om_pbN.wav
+nro_ow_pbN.wav
+nro_ym_pbN.wav
+nro_yw_pbN.wav

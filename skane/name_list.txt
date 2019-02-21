@@ -1,2 +1,12 @@
-TR1
-TR2
+bar_om_pbN
+bar_ow2A_pbN
+bar_ym_pbN
+bar_yw_pbN
+bju_om_red_pb
+bju_ow_red_pb
+bju_ym_red_pb
+bju_yw_pb
+nro_om_pbN
+nro_ow_pbN
+nro_ym_pbN
+nro_yw_pbN
