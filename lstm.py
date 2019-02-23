@@ -6,6 +6,8 @@ from keras.models import Sequential
 from keras.layers.core import Dense, Activation
 from keras.layers.recurrent import LSTM
 
+from gather import gather
+
 ### Seed for reproductibility
 np.random.seed(1234)
 
@@ -27,18 +29,33 @@ def get_data(label):
         y_test = test_data[:,0]
         X_test = test_data[:,1:]
         
-        
         X_val = X_test[:50, :]
         X_test = X_test[:50, :]
         
         y_val = y_test[:50]
         y_test = y_test[50:]
 
-    #else:
-        #(X_train, y_train), (X_test, y_test) = GET_THE_DATA
+    elif label=="south":
+        #data1 = gather("norwegian", ["pitch", "voice", "pwr"])#N_sequences, N_samples, N_features
+        #data2 = gather("west", ["pitch", "voice", "pwr"])
+        data1 = gather("norwegian", ["pitch"])
+        data2 = gather("west", ["pitch"])
+        data = np.concatenate((data1, data2))
+        y_label = np.concatenate((np.ones(data1.shape[0]), -1 * np.ones(data2.shape[0])))
+        print(data1.shape, data2.shape, data.shape)
+        ## shuffle and split the data to train validation and test
 
-    print(len(X_train), 'train sequences')
-    print(len(X_test), 'test sequences')
+
+    elif label=="west":
+        data1 = gather("skane", ["pitch", "voice", "pwr"])
+        data2 = gather("danish", ["pitch", "voice", "pwr"])
+
+    else:
+        data1 = gather("skane", ["pitch", "voice", "pwr"])
+        data2 = gather("west", ["pitch", "voice", "pwr"])
+
+
+    print(len(X_train), 'train sequences', len(X_val), 'validation sequences', len(X_test), 'test sequences')
     print('X_train shape:', X_train.shape)
     print('X_test shape:', X_test.shape)
     print('y_train shape:', y_train.shape)
@@ -83,4 +100,5 @@ def train_model(X_train, X_val, X_test, y_train,y_val, y_test):
     
 if __name__ == "__main__":
     X_train, X_val, X_test, y_train, y_val, y_test = get_data("test")
-    train_model(X_train, X_val, X_test, y_train, y_val, y_test)
+    #X_train, X_val, X_test, y_train, y_val, y_test = get_data("south")
+    #train_model(X_train, X_val, X_test, y_train, y_val, y_test)
