@@ -1,13 +1,10 @@
 bar_om_pbN
 bar_ow2A_pbN
-bar_yw_pbN
 fin_om_2i
 fin_ow_2i
 fin_ym_2i
 fin_yw_i
 gra_om_i
-gra_ow_1+2i
-gra_ym_i
 gra_yw_i
 ost_om_pb
 ost_ow_red_pb
@@ -20,8 +17,3 @@ oxa_yw_pb
 ski_om
 ski_ow
 ski_ym
-ski_yw_dubbelinsp
-too_om_pb
-too_ow_pb
-too_ym_pb
-too_yw_red_pb
