@@ -5,7 +5,7 @@ Accent Comparison From Pitch
 # The Script for Pitch Extraction
 
 The list of sound files from where to perform the extraction should be in a file called "list.txt".
-Then call the script. As output you will get 2 files, one with extension .f0 containing the information about the pitch, and another one having extension .frm that contains the informations about formanst.
+Then call the script. As output you will get 2 files, one with extension .f0 containing the information about the pitch, and another one having extension .frm that contains the informations about formants.
 
 The information abouth the pitch can be in two formats, see [here](http://www.speech.kth.se/snack/man/snack2.2/tcl-man.html#spitch)
 
@@ -24,10 +24,10 @@ Pitch values will be:
 Probablility of voicing:
  - untouched
  
-Power(already in log scale):
+Power (already in log scale):
  - untouched
 
-If using only pitch won't be enough to make any conclusive arguments about our hypothesis that the dialects, whose areas where they're spoken are in each other's proximity, are more similar than the dialects spoken in more distant areas from each other, despite the corresponding dialects' belonging to different official languages, we will encorporate formants data as part of our features. This decision was based on the fact that after pitch varition the next most prominent feature characterizing a dialect is the differences in the pronunciation of the vowels, which would be captured by their respective formants.
+If using only pitch won't be enough to make any conclusive arguments about our hypothesis that the neighboring dialects are more similar than the dialects spoken in more distant areas from each other, despite the corresponding dialects' belonging to different official languages, we will encorporate formants data as part of our features. This decision was based on the fact that after pitch varition the next most prominent feature characterizing a dialect is the differences in the pronunciation of the vowels, which would be captured by their respective formants.
 
 # Classification
 
@@ -44,7 +44,7 @@ and [here](https://keras.io/layers/recurrent/)
 
 
 
-# GET THE DATA PIETRO SERIOUSLY WHAT THE FUCK
+# DATA
 
 Dimensions : 
 
