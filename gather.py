@@ -2,18 +2,28 @@ import numpy as np
 import os
 
 
-def gather(folder, features) :
-    with open(os.path.join(folder,"name_list.txt")) as file :
-        data = np.array([[np.load(os.path.join(folder,line[:-1]+f+".npy")) for f in features] for line in file])
-    N_samples = min([d[0].shape[0] for d in data])
-    print("cut each sequence to", N_samples, "samples")
-    N_sequences, N_features = data.shape
-    new_format = np.zeros((N_sequences, 814, N_features))
+def gather(folder, features = ["pitch"], N_samples=200) :
+    data_split = []
+    for j,f in enumerate(features) : 
+        with open(os.path.join(folder,"name_list.txt")) as file :
+            data = [np.load(os.path.join(folder,line[:-1]+f+".npy")) for line in file]
+        
+        data_split.append([])
+        for d in data :
+            i = 0
+            while i < d.size-N_samples :
+                data_split[j].append(d[i:i+N_samples])
+                i+= N_samples
+       
+    N_features = len(features)         
+    N_sequences = len(data_split[0])
+
+    array = np.zeros((N_sequences, N_samples, N_features))
     for i in range(N_sequences) :
-        for j in range(814) :
+        for j in range(N_samples) :
             for k in range(N_features) :
-                new_format[i,j,k] = data[i,k][j]
-    return new_format
+                array[i,j,k] = data_split[k][i][j]
+    return array
 
 
 if __name__ == '__main__':
