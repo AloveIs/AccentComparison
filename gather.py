@@ -9,8 +9,9 @@ from random import shuffle
 # feature should be the liste of features names (pitch, voice or pwr)
 # N_sample is the number of samples in a sequence (1 sample = 0.05s)
 # N_lim is the maximum number of sequences from the same speaker (can be useful to limit the bias)
+# verbose enable to print the number of sequences extracted from each file
 
-def gather(folder, features = ["pitch"], N_samples=200, N_lim = 1000) :
+def gather(folder, features = ["pitch"], N_samples=200, N_lim = 1000, verbose=False) :
     data_split = []
     for j,f in enumerate(features) :
         #read data  
@@ -24,6 +25,9 @@ def gather(folder, features = ["pitch"], N_samples=200, N_lim = 1000) :
             while i*N_samples < d.size-N_samples and i < N_lim :
                 data_split[j].append(d[i:i+N_samples])
                 i+= 1
+            if verbose :
+                print("cut into",i,"sequences")
+
        
     N_features = len(features)         
     N_sequences = len(data_split[0])
