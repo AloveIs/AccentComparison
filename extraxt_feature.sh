@@ -6,7 +6,7 @@ do
   cd $element;
   
   # check if there are some mp3 and in case convert them
-  if ls | grep '*.mp3'; then
+  if ls | grep '.mp3'; then
     echo "$element:\t converting mp3 files"
     ./../scripts/convert.sh;
     rm -f *.mp3;
