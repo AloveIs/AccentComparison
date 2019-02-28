@@ -3,11 +3,13 @@ import numpy as np
 
 from sklearn.model_selection import train_test_split
 
+from keras.models import Model
 from keras.utils import np_utils
-from keras.models import Sequential
+from keras.engine.input_layer import Input
+from keras.layers import Dropout, Permute, BatchNormalization, Conv1D, GlobalAveragePooling1D, Concatenate
 from keras.layers.core import Dense, Activation
 from keras.layers.recurrent import LSTM
-from keras.callbacks import EarlyStopping
+#from keras.callbacks import EarlyStopping
 from keras.optimizers import Adam
 
 from gather import gather
@@ -17,9 +19,8 @@ np.random.seed(123)
 
 
 ### Hyperparameters
-batch_size = 1
-hidden_units = 16
-nb_classes = 2
+batch_size = 10
+hidden_units = 128
 
 ### Data
 def get_data(label):
@@ -32,12 +33,6 @@ def get_data(label):
         test_data = np.genfromtxt('toy_data/ECG200_TEST.tsv',delimiter='\t')
         y_test = test_data[:,0]
         X_test = test_data[:,1:]
-        
-        X_val = X_test[:50, :]
-        X_test = X_test[:50, :]
-        
-        y_val = y_test[:50]
-        y_test = y_test[50:]
 
     elif label=="west_skane":
         #data1 = gather("norwegian", ["pitch", "voice", "pwr"])#N_sequences, N_samples, N_features
@@ -70,7 +65,7 @@ def get_data(label):
     print('y_test shape:', y_test.shape)
     #print(y_test)
 
-    return X_train,  X_test,y_train, y_test
+    return X_train[:,:, np.newaxis],  X_test[:,:, np.newaxis],y_train, y_test
 
 
 def train_model(X_train, X_test, y_train, y_test):
@@ -82,22 +77,41 @@ def train_model(X_train, X_test, y_train, y_test):
     
     print('Build model...')
 
-    Y_train = np_utils.to_categorical(np.clip(y_train, 0, 1), nb_classes)
+    Y_train = np_utils.to_categorical(np.clip(y_train, 0, 1), 2)
     #Y_val = np_utils.to_categorical(np.clip(y_val, 0, 1), nb_classes)
-    Y_test = np_utils.to_categorical(np.clip(y_test, 0, 1), nb_classes)
+    Y_test = np_utils.to_categorical(np.clip(y_test, 0, 1), 2)
     
+    ####### Generating the model #########
+    inp = Input(shape = (96,1))
 
 
-    ### LSTM
-    model = Sequential()
-    model.add(LSTM(hidden_units, 
-                   batch_input_shape = (batch_size, X_train.shape[1], X_train.shape[2]), 
-                   kernel_initializer = 'random_uniform' ))
-
-
-    ### Classification
-    model.add(Dense(nb_classes))
-    model.add(Activation('softmax'))
+    ### LSTM part
+    ls = LSTM(hidden_units)(inp)
+    ls = Dropout(0.8)(ls)
+    
+    
+    ### Convolutional part    
+    conv = Conv1D(128, 8, padding='same')(inp)
+    conv = BatchNormalization()(conv)
+    conv = Activation('relu')(conv)
+    
+    conv = Conv1D(256, 5, padding='same')(conv)
+    conv = BatchNormalization()(conv)
+    conv = Activation('relu')(conv)
+    
+    conv = Conv1D(128, 3, padding='same')(conv)
+    conv = BatchNormalization()(conv)
+    conv = Activation('relu')(conv)
+    
+    conv = GlobalAveragePooling1D()(conv)
+    
+    
+    ### Concatenationa and FC network
+    out = Concatenate()([conv, ls])
+    out = Dense(2, activation = 'softmax')(out)
+    
+    
+    model = Model(inp, out)
 
 
     ### Learning algorithm
@@ -108,10 +122,10 @@ def train_model(X_train, X_test, y_train, y_test):
     print("Training ...")
     model.fit(X_train, Y_train,
               batch_size=batch_size, epochs=10,
-              validation_split = 1./6,
+              validation_split = 0.2,
               #validation_data=(X_val, Y_val), 
               #callbacks = [EarlyStopping(patience = 2, verbose = 1)],
-              verbose = 1)
+              verbose = 2)
     [score, acc] = model.evaluate(X_test, Y_test,
                                 batch_size=batch_size,
                                 verbose = 0)
@@ -122,6 +136,6 @@ def train_model(X_train, X_test, y_train, y_test):
     #print('Test accuracy: %.2f %%' % (100 - len(y_test[np.nonzero(np.argmax(prediction, axis = 1) - y_test)]) *100 / 50))
     
 if __name__ == "__main__":
-    #X_train, X_val, X_test, y_train, y_val, y_test = get_data("test")
-    X_train, X_test, y_train, y_test = get_data("west_skane")
+    X_train, X_test, y_train, y_test = get_data("test")
+    #X_train, X_test, y_train, y_test = get_data("west_skane")
     train_model(X_train, X_test, y_train, y_test)
