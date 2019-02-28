@@ -20,7 +20,7 @@ BASE = 2
 
 def process_power(file):
     data = np.genfromtxt(file + ".pwr",delimiter=' ')
-    np.save(file+"pwr", data)
+    np.save(file+"pwr", data[1:-1])
 
 
 def process_pitch(file):
