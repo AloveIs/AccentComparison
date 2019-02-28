@@ -21,3 +21,7 @@ stange_02uk-03gm
 stange_06uk-07gm
 trysil_01um-02uk
 trysil_04gk-sl
+aasnes_ma_02-joe
+kirkenaer_04gk-08gk
+ljoerdalen_ma_01-02-ab
+rena_03gm-ifg

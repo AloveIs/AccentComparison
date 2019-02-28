@@ -6,11 +6,11 @@ do
   cd $element;
   
   # check if there are some mp3 and in case convert them
-  if ls | grep '.mp3'; then
-    echo "$element:\t converting mp3 files"
-    ./../scripts/convert.sh;
-    rm -f *.mp3;
-  fi
+  #if ls | grep '.mp3'; then
+  #  echo "$element:\t converting mp3 files"
+  #  ./../scripts/convert.sh;
+    # rm -f *.mp3;
+  # fi
 
   # extract filenames with and without extension
   ./../scripts/extract_filenames.sh;
