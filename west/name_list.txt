@@ -20,8 +20,3 @@ oxa_yw_pb
 ski_om
 ski_ow
 ski_ym
-ski_yw_dubbelinsp
-too_om_pb
-too_ow_pb
-too_ym_pb
-too_yw_red_pb

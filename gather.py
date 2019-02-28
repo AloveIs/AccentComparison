@@ -1,5 +1,6 @@
 import numpy as np
 import os
+from random import shuffle
 
 
 def gather(folder, features = ["pitch"], N_samples=200) :
@@ -23,9 +24,14 @@ def gather(folder, features = ["pitch"], N_samples=200) :
         for j in range(N_samples) :
             for k in range(N_features) :
                 array[i,j,k] = data_split[k][i][j]
-    return array
+
+    #return mixed mix sequences
+    indexes = list(range(N_sequences))
+    shuffle(indexes)
+    return array[indexes,:,:]
 
 
 if __name__ == '__main__':
-    data = gather("norwegian", [ "pitch", "voice", "pwr" ])
-    print(data.shape)
+    for dialect in ["norwegian", "skane", "danish", "west"] :
+        data = gather(dialect, [ "pitch", "voice", "pwr" ])
+        print(data.shape)

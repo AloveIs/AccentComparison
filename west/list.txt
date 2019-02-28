@@ -20,7 +20,6 @@ oxa_yw_pb.wav
 ski_om.wav
 ski_ow.wav
 ski_ym.wav
-ski_yw_dubbelinsp.wav
 too_om_pb.wav
 too_ow_pb.wav
 too_ym_pb.wav
