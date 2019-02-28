@@ -49,5 +49,5 @@ def gather(folder, features = ["pitch"], N_samples=200, N_lim = 1000, verbose=Fa
 #run to see how many sequences can be obtained
 if __name__ == '__main__':
     for dialect in ["norwegian", "skane", "danish", "west"] :
-        data = gather(dialect, [ "pitch", "voice", "pwr" ])
+        data = gather(dialect, [ "pitch", "voice", "pwr" ], verbose = True)
         print(dialect, ':', data.shape)
