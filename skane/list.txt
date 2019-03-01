@@ -1,4 +1,5 @@
 bar_om_1sp.wav
+bar_om_4sp.wav
 bar_om_pbN.wav
 bar_ow2A_pbN.wav
 bar_ym_pbN.wav
@@ -8,14 +9,18 @@ bju_ow_red_pb.wav
 bju_ym_red_pb.wav
 bju_yw_pb.wav
 lod_OM_2.wav
+lod_om_3sp.wav
+lod_ow_1sp.wav
 lod_ow_2sp.wav
 lod_OW_3.wav
+nro_om_2sp.wav
 nro_om_4sp.wav
 nro_om_pbN.wav
 nro_ow_1sp.wav
 nro_ow_pbN.wav
 nro_ym_pbN.wav
 nro_yw_pbN.wav
+oss_om_2sp.wav
 oss_om_3sp.wav
 oss_ow_1sp.wav
 oss_ow_2sp.wav

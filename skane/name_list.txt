@@ -1,4 +1,5 @@
 bar_om_1sp
+bar_om_4sp
 bar_om_pbN
 bar_ow2A_pbN
 bar_ym_pbN
@@ -8,14 +9,18 @@ bju_ow_red_pb
 bju_ym_red_pb
 bju_yw_pb
 lod_OM_2
+lod_om_3sp
+lod_ow_1sp
 lod_ow_2sp
 lod_OW_3
+nro_om_2sp
 nro_om_4sp
 nro_om_pbN
 nro_ow_1sp
 nro_ow_pbN
 nro_ym_pbN
 nro_yw_pbN
+oss_om_2sp
 oss_om_3sp
 oss_ow_1sp
 oss_ow_2sp
