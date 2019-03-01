@@ -7,7 +7,7 @@ from keras.engine.input_layer import Input
 from keras.layers import Dropout, BatchNormalization, Conv1D, GlobalAveragePooling1D, Concatenate
 from keras.layers.core import Dense, Activation
 from keras.layers.recurrent import LSTM
-#from keras.callbacks import EarlyStopping
+from keras.callbacks import EarlyStopping, TensorBoard
 from keras.optimizers import Adam
 
 from get_data import get_data
@@ -60,7 +60,7 @@ def train_model(X_train, X_test, y_train, y_test):
     conv = GlobalAveragePooling1D()(conv)
     
     
-    ### Concatenationa and FC network
+    ### Concatenation and FC network
     out = Concatenate()([conv, ls])
     out = Dense(2, activation = 'softmax')(out)
     
@@ -70,15 +70,19 @@ def train_model(X_train, X_test, y_train, y_test):
 
     ### Learning algorithm
     model.compile(loss='binary_crossentropy', optimizer=Adam(lr = 0.001), metrics=['accuracy'])
-
+    
+    ### Callbacks
+    esCallBack = EarlyStopping(patience = 1, verbose = 1)
+    tbCallBack = TensorBoard(log_dir='./logs', histogram_freq=0,     #To visualize the created files :
+                             write_graph=True, write_images=True)    #tensorboard --logdir path_to_current_dir/logs 
 
     ### Training and evualuation
     print("Training ...")
     model.fit(X_train, Y_train,
-              batch_size=batch_size, epochs=1,
+              batch_size=batch_size, epochs=6,
               validation_split = 0.2,
               #validation_data=(X_val, Y_val), 
-              #callbacks = [EarlyStopping(patience = 2, verbose = 1)],
+              callbacks = [tbCallBack],
               verbose = 1)
     [score, acc] = model.evaluate(X_test, Y_test,
                                 batch_size=batch_size,
