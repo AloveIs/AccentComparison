@@ -18,7 +18,7 @@ np.random.seed(123)
 
 
 ### Hyperparameters
-batch_size = 10
+batch_size = 20
 hidden_units = 128
 
 
@@ -79,7 +79,7 @@ def train_model(model, X_train, X_test, y_train, y_test):
     Y_test = np_utils.to_categorical(np.clip(y_test, 0, 1), 2)
     
     ### Callbacks
-    esCallBack = EarlyStopping(patience = 1, verbose = 1, restore_best_weights = True)
+    esCallBack = EarlyStopping(patience = 2, verbose = 1, restore_best_weights = True)
     tbCallBack = TensorBoard(log_dir='./logs', histogram_freq=0,     #To visualize the created files :
                              write_graph=True, write_images=True)    #tensorboard --logdir path_to_current_dir/logs 
  
@@ -103,6 +103,6 @@ def train_model(model, X_train, X_test, y_train, y_test):
     
 if __name__ == "__main__":
     #X_train, X_test, y_train, y_test = get_data("test")
-    X_train, X_test, y_train, y_test = get_data("danish", "norwegian", balance = True)
-    model = generate_model(X_train.shape[1])
+    X_train, X_test, y_train, y_test = get_data("west", "skane", balance = True)
+    #model = generate_model(X_train.shape[1])
     train_model(model, X_train, X_test, y_train, y_test)
