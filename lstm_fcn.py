@@ -1,18 +1,17 @@
 from __future__ import print_function
 import numpy as np
 
-from sklearn.model_selection import train_test_split
-
 from keras.models import Model
 from keras.utils import np_utils
 from keras.engine.input_layer import Input
-from keras.layers import Dropout, Permute, BatchNormalization, Conv1D, GlobalAveragePooling1D, Concatenate
+from keras.layers import Dropout, BatchNormalization, Conv1D, GlobalAveragePooling1D, Concatenate
 from keras.layers.core import Dense, Activation
 from keras.layers.recurrent import LSTM
 #from keras.callbacks import EarlyStopping
 from keras.optimizers import Adam
 
-from gather import gather
+from get_data import get_data
+
 
 ### Seed for reproductibility
 np.random.seed(123)
@@ -21,51 +20,6 @@ np.random.seed(123)
 ### Hyperparameters
 batch_size = 10
 hidden_units = 128
-
-### Data
-def get_data(label):
-    print('Loading data...')
-    if label=="test":
-        train_data = np.genfromtxt('toy_data/ECG200_TRAIN.tsv',delimiter='\t')
-        y_train = train_data[:,0]
-        X_train = train_data[:,1:]
-
-        test_data = np.genfromtxt('toy_data/ECG200_TEST.tsv',delimiter='\t')
-        y_test = test_data[:,0]
-        X_test = test_data[:,1:]
-
-    elif label=="west_skane":
-        #data1 = gather("norwegian", ["pitch", "voice", "pwr"])#N_sequences, N_samples, N_features
-        #data2 = gather("west", ["pitch", "voice", "pwr"])
-        data1 = gather("skane", ["pitch"])
-        data2 = gather("west", ["pitch"])[:12, : , :]
-        X = np.concatenate((data1, data2))
-        y = np.concatenate(([1] * len(data1), [0] * len(data2)))
-        #y_label = np.concatenate((np.ones(data1.shape[0]), -1 * np.ones(data2.shape[0])))
-        print("Skåne Dataset : ", data1.shape)
-        print("Western Sweden Dataset : ", data2.shape)
-        ## Shuffle and split the data to train validation and test
-        X_train, X_test, y_train, y_test = train_test_split(X, y, shuffle = True)
-
-
-    elif label=="west":
-        data1 = gather("skane", ["pitch", "voice", "pwr"])
-        data2 = gather("danish", ["pitch", "voice", "pwr"])
-        
-
-    else:
-        data1 = gather("skane", ["pitch", "voice", "pwr"])
-        data2 = gather("west", ["pitch", "voice", "pwr"])
-
-
-    print(len(X_train), 'train sequences', len(X_test), 'test sequences')
-    print('X_train shape:', X_train.shape)
-    print('X_test shape:', X_test.shape)
-    print('y_train shape:', y_train.shape)
-    print('y_test shape:', y_test.shape)
-    #print(y_test)
-
-    return X_train[:,:, np.newaxis],  X_test[:,:, np.newaxis],y_train, y_test
 
 
 def train_model(X_train, X_test, y_train, y_test):
@@ -82,7 +36,7 @@ def train_model(X_train, X_test, y_train, y_test):
     Y_test = np_utils.to_categorical(np.clip(y_test, 0, 1), 2)
     
     ####### Generating the model #########
-    inp = Input(shape = (96,1))
+    inp = Input(shape = (X_train.shape[1],1))
 
 
     ### LSTM part
@@ -121,11 +75,11 @@ def train_model(X_train, X_test, y_train, y_test):
     ### Training and evualuation
     print("Training ...")
     model.fit(X_train, Y_train,
-              batch_size=batch_size, epochs=10,
+              batch_size=batch_size, epochs=1,
               validation_split = 0.2,
               #validation_data=(X_val, Y_val), 
               #callbacks = [EarlyStopping(patience = 2, verbose = 1)],
-              verbose = 2)
+              verbose = 1)
     [score, acc] = model.evaluate(X_test, Y_test,
                                 batch_size=batch_size,
                                 verbose = 0)
@@ -136,6 +90,6 @@ def train_model(X_train, X_test, y_train, y_test):
     #print('Test accuracy: %.2f %%' % (100 - len(y_test[np.nonzero(np.argmax(prediction, axis = 1) - y_test)]) *100 / 50))
     
 if __name__ == "__main__":
-    X_train, X_test, y_train, y_test = get_data("test")
-    #X_train, X_test, y_train, y_test = get_data("west_skane")
+    #X_train, X_test, y_train, y_test = get_data("test")
+    X_train, X_test, y_train, y_test = get_data("danish", "norwegian", balance = True)
     train_model(X_train, X_test, y_train, y_test)
