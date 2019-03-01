@@ -41,7 +41,6 @@ oxa_yw_pb.wav
 ski_om.wav
 ski_ow.wav
 ski_ym.wav
-ski_yw_dubbelinsp.wav
 skolan_69-79.wav
 skolan_77-78.wav
 too_om_pb.wav
