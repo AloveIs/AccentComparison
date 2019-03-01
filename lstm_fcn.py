@@ -1,6 +1,7 @@
 from __future__ import print_function
 import numpy as np
 
+import tensorflow as tf
 from keras.models import Model
 from keras.utils import np_utils
 from keras.engine.input_layer import Input
@@ -11,14 +12,14 @@ from keras.callbacks import EarlyStopping, TensorBoard
 from keras.optimizers import Adam
 
 from get_data import get_data
-
+from tensorboard_callback_wrapper import TrainValTensorBoard
 
 ### Seed for reproductibility
 np.random.seed(123)
 
 
 ### Hyperparameters
-batch_size = 20
+batch_size = 5
 hidden_units = 128
 
 
@@ -80,8 +81,8 @@ def train_model(model, X_train, X_test, y_train, y_test):
     
     ### Callbacks
     esCallBack = EarlyStopping(patience = 2, verbose = 1, restore_best_weights = True)
-    tbCallBack = TensorBoard(log_dir='./logs', histogram_freq=0,     #To visualize the created files :
-                             write_graph=True, write_images=True)    #tensorboard --logdir path_to_current_dir/logs 
+    '''tbCallBack = TensorBoard(log_dir='./logs', histogram_freq=0,     #To visualize the created files :
+                             write_graph=True, write_images=True)    #tensorboard --logdir path_to_current_dir/logs '''
  
 
     ### Training and evualuation
@@ -90,7 +91,7 @@ def train_model(model, X_train, X_test, y_train, y_test):
               batch_size=batch_size, epochs=10,
               validation_split = 0.2,
               #validation_data=(X_val, Y_val), 
-              callbacks = [esCallBack, tbCallBack],
+              callbacks = [esCallBack, TrainValTensorBoard(write_graph = True)],
               verbose = 1)
     [score, acc] = model.evaluate(X_test, Y_test,
                                 batch_size=batch_size,
