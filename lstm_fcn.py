@@ -1,88 +1,36 @@
 from __future__ import print_function
 import numpy as np
 
-from sklearn.model_selection import train_test_split
-
+import tensorflow as tf
 from keras.models import Model
 from keras.utils import np_utils
 from keras.engine.input_layer import Input
-from keras.layers import Dropout, Permute, BatchNormalization, Conv1D, GlobalAveragePooling1D, Concatenate
+from keras.layers import Dropout, BatchNormalization, Conv1D, GlobalAveragePooling1D, Concatenate
 from keras.layers.core import Dense, Activation
 from keras.layers.recurrent import LSTM
-#from keras.callbacks import EarlyStopping
+from keras.callbacks import EarlyStopping, TensorBoard
 from keras.optimizers import Adam
 
-from gather import gather
+from get_data import get_data
+from tensorboard_callback_wrapper import TrainValTensorBoard
 
 ### Seed for reproductibility
 np.random.seed(123)
 
 
 ### Hyperparameters
-batch_size = 10
+batch_size = 5
 hidden_units = 128
 
-### Data
-def get_data(label):
-    print('Loading data...')
-    if label=="test":
-        train_data = np.genfromtxt('toy_data/ECG200_TRAIN.tsv',delimiter='\t')
-        y_train = train_data[:,0]
-        X_train = train_data[:,1:]
 
-        test_data = np.genfromtxt('toy_data/ECG200_TEST.tsv',delimiter='\t')
-        y_test = test_data[:,0]
-        X_test = test_data[:,1:]
-
-    elif label=="west_skane":
-        #data1 = gather("norwegian", ["pitch", "voice", "pwr"])#N_sequences, N_samples, N_features
-        #data2 = gather("west", ["pitch", "voice", "pwr"])
-        data1 = gather("skane", ["pitch"])
-        data2 = gather("west", ["pitch"])[:12, : , :]
-        X = np.concatenate((data1, data2))
-        y = np.concatenate(([1] * len(data1), [0] * len(data2)))
-        #y_label = np.concatenate((np.ones(data1.shape[0]), -1 * np.ones(data2.shape[0])))
-        print("Skåne Dataset : ", data1.shape)
-        print("Western Sweden Dataset : ", data2.shape)
-        ## Shuffle and split the data to train validation and test
-        X_train, X_test, y_train, y_test = train_test_split(X, y, shuffle = True)
-
-
-    elif label=="west":
-        data1 = gather("skane", ["pitch", "voice", "pwr"])
-        data2 = gather("danish", ["pitch", "voice", "pwr"])
-        
-
-    else:
-        data1 = gather("skane", ["pitch", "voice", "pwr"])
-        data2 = gather("west", ["pitch", "voice", "pwr"])
-
-
-    print(len(X_train), 'train sequences', len(X_test), 'test sequences')
-    print('X_train shape:', X_train.shape)
-    print('X_test shape:', X_test.shape)
-    print('y_train shape:', y_train.shape)
-    print('y_test shape:', y_test.shape)
-    #print(y_test)
-
-    return X_train[:,:, np.newaxis],  X_test[:,:, np.newaxis],y_train, y_test
-
-
-def train_model(X_train, X_test, y_train, y_test):
-    print('Preprocessing...')
-    
-    print("Mean of training set : ", np.mean(X_train))    
-    #print("Mean of validation set : ", np.mean(X_val)) 
-    print("Mean of test set : ", np.mean(X_test)) 
+def generate_model(shape):
     
     print('Build model...')
 
-    Y_train = np_utils.to_categorical(np.clip(y_train, 0, 1), 2)
-    #Y_val = np_utils.to_categorical(np.clip(y_val, 0, 1), nb_classes)
-    Y_test = np_utils.to_categorical(np.clip(y_test, 0, 1), 2)
+    
     
     ####### Generating the model #########
-    inp = Input(shape = (96,1))
+    inp = Input(shape = (shape,1))
 
 
     ### LSTM part
@@ -106,7 +54,7 @@ def train_model(X_train, X_test, y_train, y_test):
     conv = GlobalAveragePooling1D()(conv)
     
     
-    ### Concatenationa and FC network
+    ### Concatenation and FC network
     out = Concatenate()([conv, ls])
     out = Dense(2, activation = 'softmax')(out)
     
@@ -116,7 +64,26 @@ def train_model(X_train, X_test, y_train, y_test):
 
     ### Learning algorithm
     model.compile(loss='binary_crossentropy', optimizer=Adam(lr = 0.001), metrics=['accuracy'])
+    
+    return model
 
+
+def train_model(model, X_train, X_test, y_train, y_test): 
+    
+    ### Preprocessing
+    print('Preprocessing...')
+    print("Mean of training set : ", np.mean(X_train))    
+    #print("Mean of validation set : ", np.mean(X_val)) 
+    print("Mean of test set : ", np.mean(X_test)) 
+    Y_train = np_utils.to_categorical(np.clip(y_train, 0, 1), 2)
+    #Y_val = np_utils.to_categorical(np.clip(y_val, 0, 1), nb_classes)
+    Y_test = np_utils.to_categorical(np.clip(y_test, 0, 1), 2)
+    
+    ### Callbacks
+    esCallBack = EarlyStopping(patience = 2, verbose = 1, restore_best_weights = True)
+    '''tbCallBack = TensorBoard(log_dir='./logs', histogram_freq=0,     #To visualize the created files :
+                             write_graph=True, write_images=True)    #tensorboard --logdir path_to_current_dir/logs '''
+ 
 
     ### Training and evualuation
     print("Training ...")
@@ -124,8 +91,8 @@ def train_model(X_train, X_test, y_train, y_test):
               batch_size=batch_size, epochs=10,
               validation_split = 0.2,
               #validation_data=(X_val, Y_val), 
-              #callbacks = [EarlyStopping(patience = 2, verbose = 1)],
-              verbose = 2)
+              callbacks = [esCallBack, TrainValTensorBoard(write_graph = True)],
+              verbose = 1)
     [score, acc] = model.evaluate(X_test, Y_test,
                                 batch_size=batch_size,
                                 verbose = 0)
@@ -136,6 +103,7 @@ def train_model(X_train, X_test, y_train, y_test):
     #print('Test accuracy: %.2f %%' % (100 - len(y_test[np.nonzero(np.argmax(prediction, axis = 1) - y_test)]) *100 / 50))
     
 if __name__ == "__main__":
-    X_train, X_test, y_train, y_test = get_data("test")
-    #X_train, X_test, y_train, y_test = get_data("west_skane")
-    train_model(X_train, X_test, y_train, y_test)
+    #X_train, X_test, y_train, y_test = get_data("test")
+    X_train, X_test, y_train, y_test = get_data("west", "skane", balance = True)
+    #model = generate_model(X_train.shape[1])
+    train_model(model, X_train, X_test, y_train, y_test)
