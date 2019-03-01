@@ -1,6 +1,32 @@
 # AccentComparison
 Accent Comparison From Pitch
 
+# Data Statistics
+## Total Statistics
+Number of recordings  148
+Total duration of data 46:36:57.26
+Size of data (numpy files only)  78M	
+Size of recordings 14G	
+## west
+Number of recordings  51
+Total duration of data 09:13:55.38
+Size of data (numpy files only) 16M	
+Size of recordings 2,7G	
+## skane
+Number of recordings  26
+Total duration of data 06:34:45.97
+Size of data (numpy files only) 12M	
+Size of recordings 1,8G	
+## norwegian
+Number of recordings  25
+Total duration of data 11:39:47.27
+Size of data (numpy files only) 20M	
+Size of recordings 3,5G	
+## danish
+Number of recordings  46
+Total duration of data 19:08:28.64
+Size of data (numpy files only) 32M	
+Size of recordings 5,7G	
 
 # The Script for Pitch Extraction
 

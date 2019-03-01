@@ -12,7 +12,6 @@ http://swedia.ling.gu.se/Ljud/Gotaland/Vastergotland/Oxaback/oxa_yw_pb.wav
 http://swedia.ling.gu.se/Ljud/Gotaland/Vastergotland/Oxaback/oxa_ym_red_pb.wav
 http://swedia.ling.gu.se/Ljud/Svealand/Varmland/Skillingmark/ski_ow.wav
 http://swedia.ling.gu.se/Ljud/Svealand/Varmland/Skillingmark/ski_om.wav
-http://swedia.ling.gu.se/Ljud/Svealand/Varmland/Skillingmark/ski_yw_dubbelinsp.wav
 http://swedia.ling.gu.se/Ljud/Svealand/Varmland/Skillingmark/ski_ym.wav
 http://swedia.ling.gu.se/Ljud/Svealand/Varmland/S_Finnskoga/fin_ow_2i.wav
 http://swedia.ling.gu.se/Ljud/Svealand/Varmland/S_Finnskoga/fin_om_2i.wav
