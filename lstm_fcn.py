@@ -22,21 +22,14 @@ batch_size = 10
 hidden_units = 128
 
 
-def train_model(X_train, X_test, y_train, y_test):
-    print('Preprocessing...')
-    
-    print("Mean of training set : ", np.mean(X_train))    
-    #print("Mean of validation set : ", np.mean(X_val)) 
-    print("Mean of test set : ", np.mean(X_test)) 
+def generate_model(shape):
     
     print('Build model...')
 
-    Y_train = np_utils.to_categorical(np.clip(y_train, 0, 1), 2)
-    #Y_val = np_utils.to_categorical(np.clip(y_val, 0, 1), nb_classes)
-    Y_test = np_utils.to_categorical(np.clip(y_test, 0, 1), 2)
+    
     
     ####### Generating the model #########
-    inp = Input(shape = (X_train.shape[1],1))
+    inp = Input(shape = (shape,1))
 
 
     ### LSTM part
@@ -71,10 +64,25 @@ def train_model(X_train, X_test, y_train, y_test):
     ### Learning algorithm
     model.compile(loss='binary_crossentropy', optimizer=Adam(lr = 0.001), metrics=['accuracy'])
     
+    return model
+
+
+def train_model(model, X_train, X_test, y_train, y_test): 
+    
+    ### Preprocessing
+    print('Preprocessing...')
+    print("Mean of training set : ", np.mean(X_train))    
+    #print("Mean of validation set : ", np.mean(X_val)) 
+    print("Mean of test set : ", np.mean(X_test)) 
+    Y_train = np_utils.to_categorical(np.clip(y_train, 0, 1), 2)
+    #Y_val = np_utils.to_categorical(np.clip(y_val, 0, 1), nb_classes)
+    Y_test = np_utils.to_categorical(np.clip(y_test, 0, 1), 2)
+    
     ### Callbacks
-    esCallBack = EarlyStopping(patience = 1, verbose = 1)
+    esCallBack = EarlyStopping(patience = 1, verbose = 1, restore_best_weights = True)
     tbCallBack = TensorBoard(log_dir='./logs', histogram_freq=0,     #To visualize the created files :
                              write_graph=True, write_images=True)    #tensorboard --logdir path_to_current_dir/logs 
+ 
 
     ### Training and evualuation
     print("Training ...")
@@ -96,4 +104,5 @@ def train_model(X_train, X_test, y_train, y_test):
 if __name__ == "__main__":
     #X_train, X_test, y_train, y_test = get_data("test")
     X_train, X_test, y_train, y_test = get_data("danish", "norwegian", balance = True)
-    train_model(X_train, X_test, y_train, y_test)
+    model = generate_model(X_train.shape[1])
+    train_model(model, X_train, X_test, y_train, y_test)
