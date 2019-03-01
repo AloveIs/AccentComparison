@@ -79,10 +79,10 @@ def train_model(X_train, X_test, y_train, y_test):
     ### Training and evualuation
     print("Training ...")
     model.fit(X_train, Y_train,
-              batch_size=batch_size, epochs=6,
+              batch_size=batch_size, epochs=10,
               validation_split = 0.2,
               #validation_data=(X_val, Y_val), 
-              callbacks = [tbCallBack],
+              callbacks = [esCallBack, tbCallBack],
               verbose = 1)
     [score, acc] = model.evaluate(X_test, Y_test,
                                 batch_size=batch_size,
