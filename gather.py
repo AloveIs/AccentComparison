@@ -10,7 +10,7 @@ from random import shuffle
 # N_sample is the number of samples in a sequence (1 sample = 0.05s)
 # divide is a list: 
 #   - its size is the number of distinct subsets with different speakers you want
-#   - its values are the proportion of speakers you want in each subset
+#   - its values are the ratio of SPEAKERS you want in each subset
 #   ex: [8, 1, 1] or [0.8, 0.2]
 # N_lim is the maximum number of sequences from the same speaker (can be useful to limit the bias)
 # verbose enable to print the number of sequences extracted from each file
