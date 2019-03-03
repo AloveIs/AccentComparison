@@ -1,25 +1,23 @@
 from __future__ import print_function
 import numpy as np
+from tensorflow import set_random_seed
 
-import tensorflow as tf
 from keras.models import Model
 from keras.utils import np_utils
 from keras.engine.input_layer import Input
 from keras.layers import Dropout, BatchNormalization, Conv1D, GlobalAveragePooling1D, Concatenate
 from keras.layers.core import Dense, Activation
 from keras.layers.recurrent import LSTM
-from keras.callbacks import EarlyStopping, TensorBoard
+from keras.callbacks import EarlyStopping, ReduceLROnPlateau, ModelCheckpoint
 from keras.optimizers import Adam
 
 from get_data import get_data
 from tensorboard_callback_wrapper import TrainValTensorBoard
 
 ### Seed for reproductibility
-np.random.seed(123)
-
 
 ### Hyperparameters
-batch_size = 5
+batch_size = 20
 hidden_units = 128
 
 
@@ -63,7 +61,7 @@ def generate_model(shape):
 
 
     ### Learning algorithm
-    model.compile(loss='binary_crossentropy', optimizer=Adam(lr = 0.001), metrics=['accuracy'])
+    model.compile(loss='binary_crossentropy', optimizer=Adam(lr = 0.0001), metrics=['accuracy'])
     
     return model
 
@@ -80,19 +78,22 @@ def train_model(model, X_train, X_test, y_train, y_test):
     Y_test = np_utils.to_categorical(np.clip(y_test, 0, 1), 2)
     
     ### Callbacks
-    esCallBack = EarlyStopping(patience = 2, verbose = 1, restore_best_weights = True)
-    '''tbCallBack = TensorBoard(log_dir='./logs', histogram_freq=0,     #To visualize the created files :
-                             write_graph=True, write_images=True)    #tensorboard --logdir path_to_current_dir/logs '''
+    checkp = ModelCheckpoint('best_model', save_best_only=True, monitor='val_loss', mode='min')
+    #esCallBack = EarlyStopping(patience = 2, verbose = 1, restore_best_weights = True)
+    reduce_lr = ReduceLROnPlateau(monitor='loss', factor=0.1, patience=2, verbose=1, epsilon=1e-4, mode='min')
+    '''tbCallBack = TensorBoard(log_dir='./logs', histogram_freq=0,     #To visualize the created files from the current dir :
+                             write_graph=True, write_images=True)    #tensorboard --logdir=logs --host localhost --port 8088'''
  
 
     ### Training and evualuation
     print("Training ...")
-    model.fit(X_train, Y_train,
-              batch_size=batch_size, epochs=10,
+    history = model.fit(X_train, Y_train,
+              batch_size=batch_size, epochs=30,
               validation_split = 0.2,
               #validation_data=(X_val, Y_val), 
-              callbacks = [esCallBack, TrainValTensorBoard(write_graph = True)],
+              callbacks = [checkp, TrainValTensorBoard(write_graph = True), reduce_lr],
               verbose = 1)
+    model.load_weights('best_model')
     [score, acc] = model.evaluate(X_test, Y_test,
                                 batch_size=batch_size,
                                 verbose = 0)
@@ -101,9 +102,10 @@ def train_model(model, X_train, X_test, y_train, y_test):
     print('Test score : %.3f' % score)
     print('Test accuracy : %.2f %%' % (acc*100))
     #print('Test accuracy: %.2f %%' % (100 - len(y_test[np.nonzero(np.argmax(prediction, axis = 1) - y_test)]) *100 / 50))
+    return history
     
 if __name__ == "__main__":
     #X_train, X_test, y_train, y_test = get_data("test")
-    X_train, X_test, y_train, y_test = get_data("west", "skane", balance = True)
+    #X_train, X_test, y_train, y_test = get_data("west", "skane", balance = True)
     #model = generate_model(X_train.shape[1])
     train_model(model, X_train, X_test, y_train, y_test)
