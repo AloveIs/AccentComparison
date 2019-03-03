@@ -15,6 +15,8 @@ from get_data import get_data
 from tensorboard_callback_wrapper import TrainValTensorBoard
 
 ### Seed for reproductibility
+# np.random.seed(123)
+# set_random_seed(456)
 
 ### Hyperparameters
 batch_size = 20
@@ -66,7 +68,7 @@ def generate_model(shape):
     return model
 
 
-def train_model(model, X_train, X_test, y_train, y_test): 
+def train_model(model, X_train, X_val, X_test, y_train, y_val, y_test): 
     
     ### Preprocessing
     print('Preprocessing...')
@@ -74,7 +76,7 @@ def train_model(model, X_train, X_test, y_train, y_test):
     #print("Mean of validation set : ", np.mean(X_val)) 
     print("Mean of test set : ", np.mean(X_test)) 
     Y_train = np_utils.to_categorical(np.clip(y_train, 0, 1), 2)
-    #Y_val = np_utils.to_categorical(np.clip(y_val, 0, 1), nb_classes)
+    Y_val = np_utils.to_categorical(np.clip(y_val, 0, 1), 2)
     Y_test = np_utils.to_categorical(np.clip(y_test, 0, 1), 2)
     
     ### Callbacks
@@ -89,9 +91,9 @@ def train_model(model, X_train, X_test, y_train, y_test):
     print("Training ...")
     history = model.fit(X_train, Y_train,
               batch_size=batch_size, epochs=30,
-              validation_split = 0.2,
-              #validation_data=(X_val, Y_val), 
-              callbacks = [checkp, TrainValTensorBoard(write_graph = True), reduce_lr],
+              #validation_split = 0.2,
+              validation_data=(X_val, Y_val), 
+              callbacks = [checkp, reduce_lr],
               verbose = 1)
     model.load_weights('best_model')
     [score, acc] = model.evaluate(X_test, Y_test,
