@@ -17,8 +17,8 @@ def get_data(label1, label2 = "", balance = False):
     else: 
         #data1 = gather("norwegian", ["pitch", "voice", "pwr"])#N_sequences, N_samples, N_features
         #data2 = gather("west", ["pitch", "voice", "pwr"])
-        data1_train, data1_val, data1_test = gather(label1, ["pitch"], N_lim=200, divide = [64,16,20])
-        data2_train, data2_val, data2_test = gather(label2, ["pitch"], N_lim=200, divide = [64,16,20])
+        data1_train, data1_val, data1_test = gather(label1, ["pitch"], N_lim=200, divide = [60,20,20])
+        data2_train, data2_val, data2_test = gather(label2, ["pitch"], N_lim=200, divide = [60,20,20])
         if balance:
             n = min(len(data1_train), len(data2_train))
             data1_train = data1_train[:n,:, :]
