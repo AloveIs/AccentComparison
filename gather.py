@@ -37,6 +37,7 @@ def gather(folder, features=["pitch"], N_samples=200, N_lim=1000, divide=[1], ve
             for d in data[c:d] :
                 i = 0
                 while i*N_samples < d.size-N_samples and i < N_lim :
+                    d[i:i+N_samples]-=np.mean(d[i:i+N_samples])
                     data_split[j].append(d[i:i+N_samples])
                     i+= 1
                 if verbose :
