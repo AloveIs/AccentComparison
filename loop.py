@@ -13,4 +13,4 @@ for i in range (10):
     with open(r"west_skane.pickle", "wb") as f:
         pickle.dump(history, f)
     with open(r"west_skane_test_acc.pickle", "wb") as f:
-        pickle.dump(test_acc, f)
+        pickle.dump(test_acc, f) 

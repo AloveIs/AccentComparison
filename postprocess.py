@@ -1,4 +1,5 @@
 import numpy as np
+import scipy.stats
 import matplotlib.pyplot as plt
 import pandas as pd
 import pickle
@@ -6,15 +7,18 @@ import pickle
 
 n_epochs = 10,30
 
-'''with open("dansih_skane.pickle", "rb") as f:
-	history = pickle.load(f)'''
+#with open("west_skane.pickle", "rb") as f:
+	#history = pickle.load(f)
+
+#with open("west_skane_test_acc.pickle", "rb") as f:
+	#test_acc = pickle.load(f)
 
 n_runs = len(history)
 
-data = np.zeros((10,4,30))
+data = np.zeros((10,5,30))
 for i in range(10):
     #history[i].history.pop('lr')
-    data[i, :, :] = np.array(pd.DataFrame.from_dict(b[i], orient='index'))
+    data[i, :, :] = np.array(pd.DataFrame.from_dict(history[i].history, orient='index'))
 
 
 p10 = np.percentile(data, 10, axis = 0)
@@ -60,3 +64,19 @@ plt.ylabel("Accuracy")
 
 
 plt.show()
+
+
+
+
+
+def mean_confidence_interval(data, confidence=0.95):
+    a = 1.0 * np.array(data)
+    n = len(a)
+    m, se = np.mean(a), scipy.stats.sem(a)
+    h = se * scipy.stats.t.ppf((1 + confidence) / 2., n-1)
+    return m*100, h*100
+
+
+m,h = mean_confidence_interval(test_acc)
+
+print("Test accuracy : %.2f +- %.2f %%" % (m, h))
