@@ -23,7 +23,7 @@ def gather(folder, features=["pitch"], N_samples=200, N_lim=1000, divide=[1], ve
     divide = 0,*divide
     divide = [(divide[i],divide[i+1]) for i in range(len(divide)-1)]
     subsets = ()
-
+    print(folder, "divided in:")
     for a,b in divide :
         data_split = []
         for j,f in enumerate(features) :
@@ -34,6 +34,7 @@ def gather(folder, features=["pitch"], N_samples=200, N_lim=1000, divide=[1], ve
             #split data into as many sequences as possible
             data_split.append([])
             c, d = int(a*len(data)), int(b*len(data))
+            print(d-c,"speakers")
             for d in data[c:d] :
                 i = 0
                 while i*N_samples < d.size-N_samples and i < N_lim :
