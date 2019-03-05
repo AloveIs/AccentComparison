@@ -77,3 +77,21 @@ Dimensions :
 X -> (number of sequences in the dataset, number of samples per sequence, number of features : 1 if only pitch)
 
 y -> (number of sequences in the dataset) : 0 or 1
+
+
+# Results
+
+30 epochs, 200sec, 10 loops, globaly normalized
+
+skane danish 			59.1% +/- 3.6% 
+west norwegian			58.8% +/- 4.5% (20 epoch, 5 loops)
+west skane 				63.5% +/- 4.6% 
+danish norwegian
+
+
+30 epochs, 50sec, 10 loops, sequencialy normalized
+
+skane danish 			56.1% +/- 2.6%
+west norwegian		
+west skane 			
+danish norwegian
