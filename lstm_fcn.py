@@ -104,7 +104,7 @@ def train_model(model, X_train, X_val, X_test, y_train, y_val, y_test):
     print('Test score : %.3f' % score)
     print('Test accuracy : %.2f %%' % (acc*100))
     #print('Test accuracy: %.2f %%' % (100 - len(y_test[np.nonzero(np.argmax(prediction, axis = 1) - y_test)]) *100 / 50))
-    return history, acc
+    return history
     
 if __name__ == "__main__":
     #X_train, X_test, y_train, y_test = get_data("test")
