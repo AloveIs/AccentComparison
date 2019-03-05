@@ -81,22 +81,25 @@ y -> (number of sequences in the dataset) : 0 or 1
 
 # Results
 
-30 epochs, 200sec, 10 loops, globaly normalized
+###### 30 epochs, 200sec, 10 loops, globaly normalized
 
-skane danish 			59.1% +/- 3.6% 
+ - skane danish 			59.1% +/- 3.6% 
 
-west norwegian		57.0% +/- 5.1% 	<!--previously 58.8% +/- 4.5% (20 epoch, 5 loops) -->
+ - west norwegian		57.0% +/- 5.1% 	<!--previously 58.8% +/- 4.5% (20 epoch, 5 loops) -->
 
-west skane 				63.5% +/- 4.6% 
+ - west skane 				63.5% +/- 4.6% 
 
-danish norwegian
-
-
-
-30 epochs, 50sec, 10 loops, sequencialy normalized
+ - danish norwegian
 
 
-skane danish 			56.1% +/- 2.6%
-west norwegian		69.35%  +/- 2.5%
-west skane 			
-danish norwegian
+
+###### 30 epochs, 50sec, 10 loops, sequencialy normalized
+
+
+ - skane danish 			56.1% +/- 2.6%
+ 
+ - west norwegian		69.35%  +/- 2.5%
+ 
+ - west skane 			
+ 
+ - danish norwegian
