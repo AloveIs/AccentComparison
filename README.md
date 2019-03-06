@@ -101,4 +101,4 @@ y -> (number of sequences in the dataset) : 0 or 1
  - skane danish 58.0 +/- 4.1%	</br>
  - west norwegian		69.6%  +/- 3.4% </br>
  - west skane  62.87% +/- 5.89% </br>
- - danish norwegian</br>
+ - danish norwegian 57.7% +/- 3.7%</br>
