@@ -3,30 +3,30 @@ Accent Comparison From Pitch
 
 # Data Statistics
 ## Total Statistics
-Number of recordings  148
-Total duration of data 46:36:57.26
-Size of data (numpy files only)  78M	
-Size of recordings 14G	
+Number of recordings  148</br>
+Total duration of data 46:36:57.26</br>
+Size of data (numpy files only)  78M	</br>
+Size of recordings 14G	</br>
 ## west
-Number of recordings  51
-Total duration of data 09:13:55.38
-Size of data (numpy files only) 16M	
-Size of recordings 2,7G	
+Number of recordings  51</br>
+Total duration of data 09:13:55.38</br>
+Size of data (numpy files only) 16M	</br>
+Size of recordings 2,7G	</br>
 ## skane
-Number of recordings  26
-Total duration of data 06:34:45.97
-Size of data (numpy files only) 12M	
-Size of recordings 1,8G	
+Number of recordings  26</br>
+Total duration of data 06:34:45.97</br>
+Size of data (numpy files only) 12M	</br>
+Size of recordings 1,8G	</br>
 ## norwegian
-Number of recordings  25
-Total duration of data 11:39:47.27
-Size of data (numpy files only) 20M	
-Size of recordings 3,5G	
+Number of recordings  25</br>
+Total duration of data 11:39:47.27</br>
+Size of data (numpy files only) 20M	</br>
+Size of recordings 3,5G	</br>
 ## danish
-Number of recordings  46
-Total duration of data 19:08:28.64
-Size of data (numpy files only) 32M	
-Size of recordings 5,7G	
+Number of recordings  46</br>
+Total duration of data 19:08:28.64</br>
+Size of data (numpy files only) 32M	</br>
+Size of recordings 5,7G	</br>
 
 # The Script for Pitch Extraction
 
@@ -83,33 +83,22 @@ y -> (number of sequences in the dataset) : 0 or 1
 
 ###### 30 epochs, 200sec, 10 loops, globaly normalized
 
- - skane danish 			59.1% +/- 3.6% 
-
- - west norwegian		57.0% +/- 5.1% 	<!--previously 58.8% +/- 4.5% (20 epoch, 5 loops) -->
-
- - west skane 				63.5% +/- 4.6% 
-
- - danish norwegian
-
-
+ - skane danish 			59.1% +/- 3.6% </br>
+ - west norwegian		57.0% +/- 5.1% 	<!--previously 58.8% +/- 4.5% (20 epoch, 5 loops) --></br>
+ - west skane 				63.5% +/- 4.6% </br>
+ - danish norwegian</br>
 
 ###### 30 epochs, 50sec, 10 loops, sequencialy normalized
 
 
- - skane danish 			56.1% +/- 2.6%
- 
- - west norwegian		69.35%  +/- 2.5%
- 
- - west skane 			
- 
- - danish norwegian
+ - skane danish 			56.1% +/- 2.6%</br>
+ - west norwegian		69.35%  +/- 2.5%</br>
+ - west skane	</br>
+ - danish norwegian</br>
  
  ###### 5 epochs, 200sec, 10 loops, sequencialy normalized
  
- - skane danish 58.0 +/- 4.1%	
- 
- - west norwegian		69.6%  +/- 3.4%
- 
- - west skane  62.87% +/- 5.89%
-
- - danish norwegian
+ - skane danish 58.0 +/- 4.1%	</br>
+ - west norwegian		69.6%  +/- 3.4% </br>
+ - west skane  62.87% +/- 5.89% </br>
+ - danish norwegian</br>
