@@ -119,6 +119,6 @@ LSTM(32) + DENSE(2) -> skane danish 49.4 +/- 6.0%	</br>
 CONV + DENSE(128) + DENSE(2) -> skane danish 71.3 +/- 3.1%	</br>
 LSTM(64) + CONV + DENSE(64) + DENSE(2) -> skane danish 69.7 +/- 5.7%	</br>
 LSTM(64) + CONV + DENSE(32) + DENSE(2) -> skane danish 70.9 +/- 4.5%	</br>
-LSTM(64) + CONV + DENSE(32) + DENSE(2) -> skane danish 56.4 +/- 8.3%	</br>
+LSTM(64) + DENSE(32) + DENSE(2) -> skane danish 56.4 +/- 8.3%	</br>
 LSTM(64) + CONV + DENSE(64) + DENSE(32) + DENSE(2) -> skane danish 67.9 +/- 4.3%	</br>
 
