@@ -114,10 +114,14 @@ y -> (number of sequences in the dataset) : 0 or 1
  
  
  ##### Experiments
+ ###### NO CONV
 LSTM(64) + DENSE(2) -> skane danish 57.3 +/- 2.8%	</br>
 LSTM(32) + DENSE(2) -> skane danish 49.4 +/- 6.0%	</br>
+###### NO LSTM
 CONV + DENSE(128) + DENSE(2) -> skane west 71.3 +/- 3.1%	</br>
 0.5\*CONV + DENSE(128) + DENSE(2) -> skane west 71.4 +/- 2.6%	</br>
+
+###### BOTH
 CONV + DENSE(64) + DENSE(2) -> skane west 69.8 +/- 3.6%	</br>
 LSTM(64) + CONV + DENSE(64) + DENSE(2) -> skane west 69.7 +/- 5.7%	</br>
 LSTM(64) + CONV + DENSE(32) + DENSE(2) -> skane west 70.9 +/- 4.5%	</br>
