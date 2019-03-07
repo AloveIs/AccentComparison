@@ -120,9 +120,12 @@ LSTM(32) + DENSE(2) -> skane danish 49.4 +/- 6.0%	</br>
 ###### NO LSTM
 CONV + DENSE(128) + DENSE(2) -> skane west 71.3 +/- 3.1%	</br>
 0.5\*CONV + DENSE(128) + DENSE(2) -> skane west 71.4 +/- 2.6%	</br>
+CONV + DENSE(64) + DENSE(2) -> skane west 69.8 +/- 3.6%	</br>
+
+CONV + DENSE(64) + DENSE(2) -> skane danish 60.7 +/- 3.8%	</br>
 
 ###### BOTH
-CONV + DENSE(64) + DENSE(2) -> skane west 69.8 +/- 3.6%	</br>
+
 LSTM(64) + CONV + DENSE(64) + DENSE(2) -> skane west 69.7 +/- 5.7%	</br>
 LSTM(64) + CONV + DENSE(32) + DENSE(2) -> skane west 70.9 +/- 4.5%	</br>
 LSTM(64) + DENSE(32) + DENSE(2) -> skane west 56.4 +/- 8.3%	</br>
