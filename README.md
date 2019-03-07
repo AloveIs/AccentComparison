@@ -126,6 +126,7 @@ CONV + DENSE(128) + DENSE(2) -> skane west 71.3 +/- 3.1%	</br>
 0.25\*CONV + DENSE(128) + DENSE(2) -> skane west 69.9 +/- 3.7%	</br>
 0.25\*CONV + DENSE(256) + DENSE(64) + DENSE(2) -> skane west 72.1 +/- 4.1%	</br>
 CONV + DENSE(64) + DENSE(2) -> skane west 69.8 +/- 3.6%	</br>
+CONV + DENSE(256) + DENSE(64) + DENSE(2) -> skane west 67.0 +/- 6.2%	</br>
 
 CONV + DENSE(64) + DENSE(2) -> skane danish 60.7 +/- 3.8%	</br>
 
