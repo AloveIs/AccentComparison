@@ -137,3 +137,7 @@ LSTM(64) + CONV + DENSE(32) + DENSE(2) -> skane west 70.9 +/- 4.5%	</br>
 LSTM(64) + DENSE(32) + DENSE(2) -> skane west 56.4 +/- 8.3%	</br>
 LSTM(64) + CONV + DENSE(64) + DENSE(32) + DENSE(2) -> skane west 67.9 +/- 4.3%	</br>
 
+###### CONVOLUTION IN SERIES WITH LSTM
+0.5\*CONV + LSTM(16) +  DENSE(256) + DENSE(64) + DENSE(2) -> skane west 67.0 +/- 3.8%	</br>
+
+
