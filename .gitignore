@@ -3,4 +3,5 @@
 *.frm
 *.pwr
 *.f0
+*.pickle
 #*.npy
