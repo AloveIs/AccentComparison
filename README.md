@@ -94,7 +94,7 @@ y -> (number of sequences in the dataset) : 0 or 1
  - skane danish 			</br>
  - west norwegian		69.35%  +/- 2.5%</br>
  - west skane	65.1%  +/- 1.1%</br>
- - danish norwegian</br>
+ - danish norwegian 56.3% +/- 3.8%</br>
  
 
 ###### 30 epochs, 50sec, 10 loops, sequencialy normalized
