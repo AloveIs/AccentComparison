@@ -42,10 +42,12 @@ def generate_model(shape):
     conv = Conv1D(128, 8, padding='same')(inp)
     conv = BatchNormalization()(conv)
     conv = Activation('relu')(conv)
+    conv = squeeze_and_excite(conv)
     
     conv = Conv1D(256, 5, padding='same')(conv)
     conv = BatchNormalization()(conv)
     conv = Activation('relu')(conv)
+    conv = squeeze_and_excite(conv)
     
     conv = Conv1D(128, 3, padding='same')(conv)
     conv = BatchNormalization()(conv)
@@ -66,6 +68,16 @@ def generate_model(shape):
     model.compile(loss='binary_crossentropy', optimizer=Adam(lr = 0.0001), metrics=['accuracy'])
     
     return model
+
+def squeeze_and_excite(input):
+    filters = input._keras_shape[-1] # channel_axis = -1 for TF
+
+    outp = GlobalAveragePooling1D()(input)
+    outp = Reshape((1, filters))(outp)
+    outp = Dense(filters // 16,  activation='relu', kernel_initializer='he_normal', use_bias=False)(outp)
+    outp = Dense(filters, activation='sigmoid', kernel_initializer='he_normal', use_bias=False)(outp)
+    outp = multiply([input, outp])
+    return outp
 
 
 def train_model(model, X_train, X_val, X_test, y_train, y_val, y_test): 
