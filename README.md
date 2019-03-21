@@ -57,26 +57,14 @@ If using only pitch won't be enough to make any conclusive arguments about our h
 
 # Classification
 
-The classification can be performed using a recurrent neural network as it can deal with time series well. As a suggestion it is also possible to introduce a CNN as explored by [this paper](https://ieeexplore.ieee.org/document/8141873).
+The classification can be performed using a recurrent neural network as it can deal with time series well. 
 
-One particular flexible network could be the LSTM one, and for the setting of classification in Python we can refer to a tutorial [here](https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/). 
+One particular flexible network is the LSTM one, whose inner working is explained here : [LSTM explaination](http://colah.github.io/posts/2015-08-Understanding-LSTMs/). The advantage is to be able to model the temporal structure of the data on the long-term. 
 
-Here is another [link](https://datascience.stackexchange.com/questions/32341/what-is-the-best-method-for-classification-of-time-series-datashould-i-use-lstm) still on the topic of LSTM networks.
-
-[LSTM explaination](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
-
-To use in python with Keras library we must start from this [page here ](https://keras.io/getting-started/sequential-model-guide/).
-and [here](https://keras.io/layers/recurrent/)
+We also introduced a CNN, as explored by [this paper](https://ieeexplore.ieee.org/document/8141873), to enhance the classification. Indeed, while the general temporal structure of the date is modelled well by the LSTM, CNNs offer an efficient way of extracting short-term features from the data. That is why it makes sense to combine both approaches.
 
 
-
-# DATA
-
-Dimensions : 
-
-X -> (number of sequences in the dataset, number of samples per sequence, number of features : 1 if only pitch)
-
-y -> (number of sequences in the dataset) : 0 or 1
+To implement such a network in python with Keras library we can refer to this [page here ](https://keras.io/getting-started/sequential-model-guide/) and [here](https://keras.io/layers/recurrent/).
 
 
 # Results
